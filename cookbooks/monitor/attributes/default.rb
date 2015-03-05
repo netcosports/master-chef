@@ -1,5 +1,5 @@
 override["sensu"]["use_embedded_ruby"] = true
-
+override["sensu"]["use_ssl"] = false
 default["monitor"]["master_address"] = nil
 
 default["monitor"]["environment_aware_search"] = false
