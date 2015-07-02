@@ -87,7 +87,7 @@ define :nodejs_app, {
     daemon "#{directory}/shared/run_node_#{nodejs_app_params[:name]}.sh"
     file_check ["#{directory}/current/#{nodejs_app_params[:script]}"] + nodejs_app_params[:file_check]
     directory_check nodejs_app_params[:directory_check]
-    options nodejs_app_params[:script]
+    options nodejs_app_params[:launcher] ? nodejs_app_params[:launcher] + " -- " + nodejs_app_params[:script] : nodejs_app_params[:script]
     pid_directory "#{directory}/shared"
     user nodejs_app_params[:user]
     working_directory "#{directory}/current"
