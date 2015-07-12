@@ -41,12 +41,12 @@ umask 022
 . /lib/lsb/init-functions
 
 status_<%= @name %>() {
-  PID_FILE="$(ls `dirname $PID_FILE`/*.pid | grep $NAME | grep -v $PID_FILE || echo $PID_FILE)"
+  PID_FILE="$(ls `dirname $PID_FILE`/*.pid | grep "$NAME[\.-]" | grep -v $PID_FILE || echo $PID_FILE)"
   status_of_proc -p "$PID_FILE" "<%= @name %>" "$NAME"
 }
 
 stop_<%= @name %>() {
-  PID_FILE="$(ls `dirname $PID_FILE`/*.pid | grep $NAME | grep -v $PID_FILE || echo $PID_FILE)"
+  PID_FILE="$(ls `dirname $PID_FILE`/*.pid | grep "$NAME[\.-]" | grep -v $PID_FILE || echo $PID_FILE)"
   if [ ! "$PID_FILE" = "" ]; then
     if [ -f $PID_FILE ]; then
       $START_STOP_DAEMON --oknodo --retry TERM/<%= @check_stop[:term_time].call() %>/KILL/<%= @check_stop[:kill_time].call() %> --pidfile $PID_FILE --signal TERM --stop
