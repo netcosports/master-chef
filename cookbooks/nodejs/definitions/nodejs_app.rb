@@ -88,6 +88,7 @@ define :nodejs_app, {
     file_check ["#{directory}/current/#{nodejs_app_params[:script]}"] + nodejs_app_params[:file_check]
     directory_check nodejs_app_params[:directory_check]
     options nodejs_app_params[:launcher] ? nodejs_app_params[:launcher] + " -- " + nodejs_app_params[:script] : nodejs_app_params[:script]
+    killer nodejs_app_params[:killer] ? nodejs_app_params[:killer] : ""
     pid_directory "#{directory}/shared"
     user nodejs_app_params[:user]
     working_directory "#{directory}/current"

@@ -1,6 +1,7 @@
 
 define :basic_init_d, {
   :daemon => nil,
+  :killer => "",
   :options => "",
   :user => nil,
   :make_pidfile => true,
@@ -60,6 +61,7 @@ define :basic_init_d, {
       :executable_check => basic_init_d_params[:executable_check] + ["$DAEMON"],
       :start_options => start_options,
       :end_of_command => end_of_command,
+      :killer => basic_init_d_params[:killer],
       :post_start => post_start,
       :su_command => su_command,
       :vars_to_unset => basic_init_d_params[:vars_to_unset],
