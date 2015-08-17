@@ -52,12 +52,7 @@ EOF
   mode '0400'
 end
 
-execute "change postgresql root password" do
-  user node.postgresql.user
-  command "psql --command \"CREATE USER #{node.postgresql.root_account} WITH CREATEDB NOCREATEUSER NOCREATEROLE PASSWORD '#{root_postgresql_password}';\""
-  not_if "PGPASSWORD=#{root_postgresql_password} psql postgres --username=#{node.postgresql.root_account} --command=\"select 1;\""
-end
-
+puts node.postgresql.version.to_f
 if node.postgresql.version.to_f >= 9.3
 
   execute "add include confd postgresql config file" do
@@ -83,6 +78,12 @@ template "/etc/postgresql/#{node.postgresql.version}/main/conf.d/chef.conf" do
   owner node.postgresql.user
   group node.postgresql.user
   notifies :restart, "service[#{node.postgresql.service_name}]", :immediately
+end
+
+execute "change postgresql root password" do
+  user node.postgresql.user
+  command "psql --command \"CREATE USER #{node.postgresql.root_account} WITH CREATEDB NOCREATEUSER NOCREATEROLE PASSWORD '#{root_postgresql_password}';\""
+  not_if "PGPASSWORD=#{root_postgresql_password} psql postgres --username=#{node.postgresql.root_account} --command=\"select 1;\""
 end
 
 if node[:postgresql] && node.postgresql[:databases] && !node.postgresql[:no_databases]
