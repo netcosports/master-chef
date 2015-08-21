@@ -48,10 +48,7 @@ status_<%= @name %>() {
 stop_<%= @name %>() {
   if [ ! "$PID_FILE" = "" ]; then
     if [ -f $PID_FILE ]; then
-      $START_STOP_DAEMON --oknodo --retry TERM/<%= @check_stop[:term_time].call() %>/KILL/<%= @check_stop[:kill_time].call() %> --pidfile $PID_FILE --signal TERM --stop
-      <% if @killer %>
-      <%= @killer %>
-      <% end %>
+      $START_STOP_DAEMON --oknodo --retry TERM/<%= @check_stop[:term_time].call() %>/KILL/<%= @check_stop[:kill_time].call() %> --pidfile $PID_FILE --signal TERM --stop <% if !@killer.empty? %>  && <%= @killer %>  && sleep 2 <% end %>
     fi
   fi
 }
