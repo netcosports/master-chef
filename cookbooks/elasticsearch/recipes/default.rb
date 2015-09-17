@@ -121,8 +121,8 @@ end
 
 if node.elasticsearch.enable_logs
   node.default[:elasticsearch][:logs][:general] = "#{node.elasticsearch.directory_logs}/#{node.elasticsearch.cluster_name}.log"
-  node.default[:elasticsearch][:logs][:indexing_slowlog] = "#{node.elasticsearch.directory_logs}/#{node.elasticsearch.cluster_name}_indexing_slowlog.log}"
-  node.default[:elasticsearch][:logs][:search_slowlog] = "#{node.elasticsearch.directory_logs}/#{node.elasticsearch.cluster_name}_search_slowlog.log"
+  node.default[:elasticsearch][:logs][:indexing_slowlog] = "#{node.elasticsearch.directory_logs}/#{node.elasticsearch.cluster_name}_index_indexing_slowlog.log"
+  node.default[:elasticsearch][:logs][:search_slowlog] = "#{node.elasticsearch.directory_logs}/#{node.elasticsearch.cluster_name}_index_search_slowlog.log"
 
   node_logstash_files "elasticsearch_logs" do
     files [
