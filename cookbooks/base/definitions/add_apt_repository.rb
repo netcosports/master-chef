@@ -58,10 +58,10 @@ define :add_apt_repository, {
 
   end
 
-  file "/etc/apt/sources.list.d/#{add_apt_repository_params[:name]}.list" do
-    content "deb #{add_apt_repository_params[:url]} #{add_apt_repository_params[:distrib]} #{add_apt_repository_params[:components].join(' ')}\n"
-    mode '0644'
-    notifies :run, "execute[run apt-get update]", :immediately if add_apt_repository_params[:run_apt_get_update]
-  end
+  # file "/etc/apt/sources.list.d/#{add_apt_repository_params[:name]}.list" do
+  #   content "deb #{add_apt_repository_params[:url]} #{add_apt_repository_params[:distrib]} #{add_apt_repository_params[:components].join(' ')}\n"
+  #   mode '0644'
+  #   notifies :run, "execute[run apt-get update]", :immediately if add_apt_repository_params[:run_apt_get_update]
+  # end
 
 end
